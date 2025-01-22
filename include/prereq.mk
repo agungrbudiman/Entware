@@ -104,7 +104,8 @@ define SetupHostCommand
 	           $(call QuoteHostCommand,$(9)) $(call QuoteHostCommand,$(10)) \
 	           $(call QuoteHostCommand,$(11)) $(call QuoteHostCommand,$(12)); do \
 		if [ -n "$$$$$$$$cmd" ]; then \
-			bin="$$$$$$$$(command -v "$$$$$$$${cmd%% *}")"; \
+			bin="$$$$$$$$(PATH="$(subst $(space),:,$(filter-out $(STAGING_DIR_HOST)/%,$(subst :,$(space),$(PATH))))" \
+				command -v "$$$$$$$${cmd%% *}")"; \
 			if [ -x "$$$$$$$$bin" ] && eval "$$$$$$$$cmd" >/dev/null 2>/dev/null; then \
 				case "$$$$$$$$(ls -dl -- $(STAGING_DIR_HOST)/bin/$(strip $(1)))" in \
 					"-"* | \
