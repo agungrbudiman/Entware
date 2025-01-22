@@ -34,12 +34,11 @@ EXCLUDE_DIRS:= \
 	*.install.flags \
 	*.install \
 	*/share/locale \
-	*/go1.*
+	*/host/go* \
 
 SDK_DIRS = \
 		$(STAGING_SUBDIR_HOST) \
 		$(STAGING_SUBDIR_TOOLCHAIN) \
-		$(STAGING_SUBDIR_HOSTPKG)
 
 GIT_URL:=$(shell git config --get remote.origin.url 2>/dev/null)
 GIT_URL:=$(if $(CONFIG_BUILDBOT),$(filter git://% http://% https://%,$(GIT_URL)),$(GIT_URL))
