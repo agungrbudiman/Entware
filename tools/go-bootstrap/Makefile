@@ -12,11 +12,13 @@ PKG_VERSION:=1.20.6
 PKG_RELEASE:=1
 
 OS=$(shell uname | tr 'A-Z' 'a-z')
-BINTYPE=$(shell uname -m | sed 's/i[3-9]86/386/;s/x86_64/amd64/')
+BINTYPE=$(shell uname -m | sed 's/aarch64/arm64/;s/i[3-9]86/386/;s/x86_64/amd64/')
 
 PKG_SOURCE:=go$(PKG_VERSION).$(OS)-$(BINTYPE).tar.gz
 PKG_SOURCE_URL:=https://storage.googleapis.com/golang
-PKG_HASH:=b945ae2bb5db01a0fb4786afde64e6fbab50b67f6fa0eb6cfa4924f16a7ff1eb
+PKG_HASH_linux_amd64:=b945ae2bb5db01a0fb4786afde64e6fbab50b67f6fa0eb6cfa4924f16a7ff1eb
+PKG_HASH_linux_arm64:=4e15ab37556e979181a1a1cc60f6d796932223a0f5351d7c83768b356f84429b
+PKG_HASH:=$(PKG_HASH_$(OS)_$(BINTYPE))
 
 HOST_BUILD_DIR:=$(STAGING_DIR_HOST)/go1.20
 HOST_UNPACK:=gzip -dc $(DL_DIR)/$(PKG_SOURCE) | tar -C $(HOST_BUILD_DIR) --strip-components=1 -xf -
